@@ -1,10 +1,19 @@
-import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 
 function Pillar({ title, body }: { title: string; body: string }) {
   return (
     <div className="border-l-2 border-gold pl-5 py-1">
       <h4 className="font-serif text-lg text-navy mb-1">{title}</h4>
+      <p className="text-sm text-navy/70 leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function SubCard({ label, title, body }: { label: string; title: string; body: string }) {
+  return (
+    <div className="border border-gold/40 bg-white/60 p-6">
+      <p className="text-[11px] uppercase tracking-[0.25em] text-gold font-medium mb-3">{label}</p>
+      <h4 className="font-serif text-xl text-navy mb-3 leading-snug">{title}</h4>
       <p className="text-sm text-navy/70 leading-relaxed">{body}</p>
     </div>
   );
@@ -27,12 +36,13 @@ export function SplitSection() {
           </p>
           <div className="space-y-6 max-w-lg">
             <Pillar title="Technology Services" body="Development, design, digital marketing, UX, market entry." />
+            <Pillar title="Fractional Leadership" body="Fractional CTO, CFO, CMO, and CPO embedded at your stage, not overhead you carry full-time." />
             <Pillar title="Operational Embedding" body="We work inside your business, not as advisors from the outside." />
             <Pillar title="Investment" body="Capital from a team that already knows your numbers." />
           </div>
-          <Link to="/contact" className="inline-block mt-10 text-navy font-medium border-b-2 border-gold pb-1 hover:text-gold transition-colors">
-            Work with us →
-          </Link>
+          <p className="mt-8 text-sm italic text-navy/60 max-w-lg">
+            All services are fee-based. Investment is earned separately, not bundled.
+          </p>
         </Reveal>
       </div>
 
@@ -41,19 +51,25 @@ export function SplitSection() {
         <Reveal delay={120}>
           <p className="text-xs uppercase tracking-[0.3em] text-gold font-medium mb-5">For Club Members</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-navy leading-tight mb-6">
-            Deal flow you can trust.
+            Not just deal flow. An inside view.
           </h2>
           <p className="text-navy/75 leading-relaxed mb-10 max-w-lg">
-            Every company we bring to club members has been vetted the hard way — through an
-            actual working relationship, not a pitch deck. You see fewer deals. Better ones.
+            We only bring deals to club members after we've worked inside the business. By the
+            time you see an opportunity, the operational risk has already been stress-tested —
+            not by analysts, but by our own team on the ground.
           </p>
-          <div className="space-y-6 max-w-lg">
-            <Pillar title="Curated, not crowdsourced" body="Members access deals reserved for the club, not listed publicly." />
-            <Pillar title="Operational due diligence built in" body="We've already embedded with the founder. You get our real read, not a deck summary." />
+          <div className="grid grid-cols-1 gap-5 max-w-lg">
+            <SubCard
+              label="For Venture Capital Firms"
+              title="Co-investment with an operational edge."
+              body="We don't compete with VCs — we de-risk the early stage before you come in. Every company we surface has been through real operational scrutiny. You get a cleaner entry point, a founder we already trust, and a team already embedded alongside them."
+            />
+            <SubCard
+              label="For Angel Investors"
+              title="Back founders. Or build with them."
+              body="Club membership isn't just a cheque. Angels can come in as investors, advisors, or step into an active operating role — as a C-suite member or board seat. If you have capital, expertise, or both, there's a place for you inside a Matwa-backed company."
+            />
           </div>
-          <Link to="/contact" className="inline-block mt-10 text-navy font-medium border-b-2 border-gold pb-1 hover:text-gold transition-colors">
-            Apply to join →
-          </Link>
         </Reveal>
       </div>
     </section>

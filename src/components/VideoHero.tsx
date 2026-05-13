@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+
 import heroVideo from "@/assets/hero-video.mp4";
 import heroPoster from "@/assets/hero-poster.jpg";
 
@@ -52,20 +52,6 @@ export function VideoHero() {
             committed — providing technology services first, then capital. Skin in the game
             is the starting point, not the finish line.
           </p>
-          <div className="animate-fade-up-delay-3 mt-9 flex flex-wrap gap-4">
-            <Link
-              to="/founders"
-              className="inline-flex items-center gap-2 bg-gold text-navy-deep px-7 py-3.5 font-medium tracking-wide hover:bg-gold/90 transition-colors"
-            >
-              I'm a Founder <span aria-hidden>→</span>
-            </Link>
-            <Link
-              to="/club-members"
-              className="inline-flex items-center gap-2 border border-white/80 text-white px-7 py-3.5 font-medium tracking-wide hover:bg-white hover:text-navy-deep transition-colors"
-            >
-              I'm an Investor <span aria-hidden>→</span>
-            </Link>
-          </div>
         </div>
       </div>
     </section>
