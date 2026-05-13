@@ -1,19 +1,32 @@
 import { Reveal } from "./Reveal";
 
-function Pillar({ title, body }: { title: string; body: string }) {
+function PillarCard({
+  label,
+  title,
+  body,
+  index,
+}: {
+  label?: string;
+  title: string;
+  body: string;
+  index?: number;
+}) {
   return (
-    <div className="border-l-2 border-gold pl-5 py-1">
-      <h4 className="font-serif text-lg text-navy mb-1">{title}</h4>
-      <p className="text-sm text-navy/70 leading-relaxed">{body}</p>
-    </div>
-  );
-}
-
-function SubCard({ label, title, body }: { label: string; title: string; body: string }) {
-  return (
-    <div className="border border-gold/40 bg-white/60 p-6">
-      <p className="text-[11px] uppercase tracking-[0.25em] text-gold font-medium mb-3">{label}</p>
-      <h4 className="font-serif text-xl text-navy mb-3 leading-snug">{title}</h4>
+    <div className="group relative border border-gold/30 bg-white/70 backdrop-blur-sm p-6 transition-all duration-500 hover:border-gold hover:bg-white hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(200,169,110,0.4)]">
+      <div className="absolute left-0 top-0 h-full w-[2px] bg-gold scale-y-0 origin-top transition-transform duration-500 group-hover:scale-y-100" />
+      {label && (
+        <p className="text-[11px] uppercase tracking-[0.25em] text-gold font-medium mb-3">
+          {label}
+        </p>
+      )}
+      {typeof index === "number" && (
+        <p className="font-serif text-xs text-gold/70 mb-2">
+          0{index}
+        </p>
+      )}
+      <h4 className="font-serif text-xl text-navy mb-2 leading-snug transition-colors group-hover:text-navy-deep">
+        {title}
+      </h4>
       <p className="text-sm text-navy/70 leading-relaxed">{body}</p>
     </div>
   );
@@ -21,11 +34,13 @@ function SubCard({ label, title, body }: { label: string; title: string; body: s
 
 export function SplitSection() {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2">
+    <section className="grid grid-cols-1 md:grid-cols-2 bg-cream">
       {/* For Founders */}
-      <div className="bg-cream px-6 lg:px-16 py-20 lg:py-28">
+      <div className="px-6 lg:px-14 py-20 lg:py-28 md:border-r border-navy/10">
         <Reveal>
-          <p className="text-xs uppercase tracking-[0.3em] text-gold font-medium mb-5">For Founders</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-gold font-medium mb-5">
+            For Founders
+          </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-navy leading-tight mb-6">
             Your first unfair advantage.
           </h2>
@@ -34,12 +49,20 @@ export function SplitSection() {
             embedded in your business. If we like what we see — and you like working with us —
             we invest.
           </p>
-          <div className="space-y-6 max-w-lg">
-            <Pillar title="Technology Services" body="Development, design, digital marketing, UX, market entry." />
-            <Pillar title="Fractional Leadership" body="Fractional CTO, CFO, CMO, and CPO embedded at your stage, not overhead you carry full-time." />
-            <Pillar title="Operational Embedding" body="We work inside your business, not as advisors from the outside." />
-            <Pillar title="Investment" body="Capital from a team that already knows your numbers." />
-          </div>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl">
+          {[
+            { title: "Technology Services", body: "Development, design, digital marketing, UX, market entry." },
+            { title: "Fractional Leadership", body: "Fractional CTO, CFO, CMO, and CPO embedded at your stage, not overhead you carry full-time." },
+            { title: "Operational Embedding", body: "We work inside your business, not as advisors from the outside." },
+            { title: "Investment", body: "Capital from a team that already knows your numbers." },
+          ].map((p, i) => (
+            <Reveal key={p.title} delay={120 + i * 80}>
+              <PillarCard title={p.title} body={p.body} index={i + 1} />
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={500}>
           <p className="mt-8 text-sm italic text-navy/60 max-w-lg">
             All services are fee-based. Investment is earned separately, not bundled.
           </p>
@@ -47,9 +70,11 @@ export function SplitSection() {
       </div>
 
       {/* For Club Members */}
-      <div className="bg-white border-l border-border px-6 lg:px-16 py-20 lg:py-28">
-        <Reveal delay={120}>
-          <p className="text-xs uppercase tracking-[0.3em] text-gold font-medium mb-5">For Club Members</p>
+      <div className="px-6 lg:px-14 py-20 lg:py-28">
+        <Reveal>
+          <p className="text-xs uppercase tracking-[0.3em] text-gold font-medium mb-5">
+            For Club Members
+          </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-navy leading-tight mb-6">
             Not just deal flow. An inside view.
           </h2>
@@ -58,18 +83,29 @@ export function SplitSection() {
             time you see an opportunity, the operational risk has already been stress-tested —
             not by analysts, but by our own team on the ground.
           </p>
-          <div className="grid grid-cols-1 gap-5 max-w-lg">
-            <SubCard
-              label="For Venture Capital Firms"
-              title="Co-investment with an operational edge."
-              body="We don't compete with VCs — we de-risk the early stage before you come in. Every company we surface has been through real operational scrutiny. You get a cleaner entry point, a founder we already trust, and a team already embedded alongside them."
-            />
-            <SubCard
-              label="For Angel Investors"
-              title="Back founders. Or build with them."
-              body="Club membership isn't just a cheque. Angels can come in as investors, advisors, or step into an active operating role — as a C-suite member or board seat. If you have capital, expertise, or both, there's a place for you inside a Matwa-backed company."
-            />
-          </div>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl">
+          {[
+            {
+              label: "For Venture Capital Firms",
+              title: "Co-investment with an operational edge.",
+              body: "We don't compete with VCs — we de-risk the early stage before you come in. Every company we surface has been through real operational scrutiny.",
+            },
+            {
+              label: "For Angel Investors",
+              title: "Back founders. Or build with them.",
+              body: "Angels can come in as investors, advisors, or step into an active operating role — as a C-suite member or board seat. If you have capital, expertise, or both, there's a place for you.",
+            },
+          ].map((c, i) => (
+            <Reveal key={c.label} delay={120 + i * 120}>
+              <PillarCard label={c.label} title={c.title} body={c.body} />
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={500}>
+          <p className="mt-8 text-sm italic text-navy/60 max-w-lg">
+            Membership is curated. Every introduction has already passed our operational bar.
+          </p>
         </Reveal>
       </div>
     </section>
