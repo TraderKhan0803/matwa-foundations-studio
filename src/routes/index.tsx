@@ -1,26 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
+import { VideoHero } from "@/components/VideoHero";
+import { SplitSection } from "@/components/SplitSection";
+import { Testimonials } from "@/components/Testimonials";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Matwa Group — Venture Studio" },
+      { name: "description", content: "Matwa Group is a venture studio. We work alongside founders — providing technology services first, then capital." },
+      { property: "og:title", content: "Matwa Group — Venture Studio" },
+      { property: "og:description", content: "We build with founders before we back them." },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <Nav />
+      <main>
+        <VideoHero />
+        <SplitSection />
+        <Testimonials />
+      </main>
+      <Footer />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
