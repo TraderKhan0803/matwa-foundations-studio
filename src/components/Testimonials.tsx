@@ -41,7 +41,7 @@ export function Testimonials() {
       {/* ambient gold glow */}
       <div
         className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-[40rem] rounded-full opacity-20 blur-3xl"
-        style={{ background: "radial-gradient(closest-side, hsl(var(--gold) / 0.5), transparent)" }}
+        style={{ background: "radial-gradient(closest-side, var(--gold), transparent)" }}
       />
       <div className="relative mx-auto max-w-4xl px-6 lg:px-10">
         <Reveal>
