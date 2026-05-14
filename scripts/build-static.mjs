@@ -91,7 +91,16 @@ if (!writeServerShim()) process.exit(1);
 console.log(
   "[build:static] Pass 2/2: re-running build to prerender pages (emptyOutDir disabled so the shim survives)...",
 );
-if (runVite(["build", "--emptyOutDir", "false"]) !== 0) process.exit(1);
+// Vite occasionally throws a benign `process.stdin.off is not a function`
+// during teardown after a successful prerender (Node/Vite stdio bug when
+// spawned without a TTY). We tolerate a non-zero exit here as long as the
+// prerendered HTML files actually landed on disk (verified below).
+const pass2Status = runVite(["build", "--emptyOutDir", "false"]);
+if (pass2Status !== 0) {
+  console.warn(
+    `[build:static] Pass 2 exited with code ${pass2Status}; verifying prerender output anyway...`,
+  );
+}
 
 // Pass 2 may overwrite the entry file; make sure the shim still exists.
 if (!existsSync(join(distServer, "server.js"))) writeServerShim();
