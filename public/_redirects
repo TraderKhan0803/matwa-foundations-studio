@@ -1,0 +1,4 @@
+/* SPA fallback for static hosts (Netlify, Cloudflare Pages, etc.).
+ * Prerender emits real HTML for every known route, so the rewrite is only
+ * a safety net for unknown URLs (which then render the client-side 404). */
+/*    /index.html   200
