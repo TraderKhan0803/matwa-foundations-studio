@@ -8,8 +8,23 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
 // @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
+//
+// Prerender config: every route is statically rendered to HTML at build time so the
+// site can be hosted as plain static files (Netlify / GitHub Pages / any CDN). The
+// `build:static` npm script extracts just those static files into `dist/`.
 export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
+    prerender: {
+      enabled: true,
+      crawlLinks: true,
+      retryCount: 2,
+    },
+    pages: [
+      { path: "/" },
+      { path: "/founders" },
+      { path: "/club-members" },
+      { path: "/contact" },
+    ],
   },
 });
